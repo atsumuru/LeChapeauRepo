@@ -36,7 +36,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(roomName);
     }
 
-    // attepmt to join a existing room
+    // attepmt to join an existing room
     public void JoinRoom (string roomName)
     {
         PhotonNetwork.JoinRoom(roomName);
