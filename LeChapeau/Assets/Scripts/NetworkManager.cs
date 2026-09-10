@@ -49,10 +49,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(sceneName);
     }
 
-    public override void OnConnectedToMaster()
-    {
-        CreateRoom("TestRoom");
-    }
+    //public override void OnConnectedToMaster()
+    //{
+    //    CreateRoom("TestRoom");
+    //}
 
     public override void OnCreatedRoom()
     {
