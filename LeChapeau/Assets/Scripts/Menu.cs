@@ -4,7 +4,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Menu : MonoBehaviourPunCallbacks // get Photon callbacks for the menu so we can update the UI when we connect to the server
+public class Menu : MonoBehaviourPunCallbacks
 {
     [Header("Screens")]
     public GameObject mainScreen;
@@ -18,15 +18,14 @@ public class Menu : MonoBehaviourPunCallbacks // get Photon callbacks for the me
     public TextMeshProUGUI playerListText;
     public Button startGameButton;
 
+    // Start is called before the first frame update
     void Start()
     {
-        // disable the buttons at the start as we're not connected to the server yet
+        // disable the main screen buttons at start as we're not connected to the server yet
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
     }
 
-    // called when we connect to the master server
-    // enables the "Create Room" and "Join Room" buttons
     public override void OnConnectedToMaster()
     {
         createRoomButton.interactable = true;
@@ -38,15 +37,20 @@ public class Menu : MonoBehaviourPunCallbacks // get Photon callbacks for the me
         // deactivate all screens
         mainScreen.SetActive(false);
         lobbyScreen.SetActive(false);
+
         // enable the requested screen
         screen.SetActive(true);
     }
+
     public void OnCreateRoomButton(TMP_InputField roomNameInput)
     {
         NetworkManager.instance.CreateRoom(roomNameInput.text);
     }
+
     public void OnJoinRoomButton(TMP_InputField roomNameInput)
     {
+        // idk
+
         NetworkManager.instance.JoinRoom(roomNameInput.text);
     }
 
@@ -57,20 +61,39 @@ public class Menu : MonoBehaviourPunCallbacks // get Photon callbacks for the me
 
     public override void OnJoinedRoom()
     {
+        // no there
+
         SetScreen(lobbyScreen);
-        // since there's now a player in the lobby, tell everyone to update the lobby UI
+        // since there's now a player in the lobby, tell everyone to update their lobby UI
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
-    [PunRPC] // this function is called on all clients when a player joins or leaves the lobby
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        // we don't RPC it like when we joined the lobby
+        // because OnJoinRoom is only called for the client who just joined
+        // whereas OnPlayerLeftRoom gets called for all clients in the room
+        UpdateLobbyUI();
+    }
+
+    // called whenever someone joins or leaves the lobby
+    [PunRPC]
     public void UpdateLobbyUI()
     {
+        // not here
+
         playerListText.text = "";
+
         // display all the players currently in the lobby
         foreach (Player player in PhotonNetwork.PlayerList)
         {
+            // not here
+
             playerListText.text += player.NickName + "\n";
         }
+
+        // not here
+
         // only the host can start the game
         if (PhotonNetwork.IsMasterClient)
             startGameButton.interactable = true;
@@ -78,26 +101,14 @@ public class Menu : MonoBehaviourPunCallbacks // get Photon callbacks for the me
             startGameButton.interactable = false;
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        // we don't RPC it like when we join the lobby
-        // that's because OnJoinRoom is only called for the client who just joined
-        // OnPlayerLeftRoom gets called for all clients in the room, so we don't need to RPC
-    UpdateLobbyUI();
-    }
     public void OnLeaveLobbyButton()
     {
         PhotonNetwork.LeaveRoom();
         SetScreen(mainScreen);
     }
+
     public void OnStartGameButton()
     {
-        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game"); // change the scene for all players in the lobby
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
     }
 }

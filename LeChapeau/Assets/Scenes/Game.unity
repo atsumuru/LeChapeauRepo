@@ -483,6 +483,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0459915afe8d61a43a3a619bf69fbfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
+  playerContainers:
+  - obj: {fileID: 1769474113}
+    nameText: {fileID: 635481164}
+    hatTimeSlider: {fileID: 623161879}
+  - obj: {fileID: 1418948490}
+    nameText: {fileID: 1591573456}
+    hatTimeSlider: {fileID: 1288935426}
+  - obj: {fileID: 78373195}
+    nameText: {fileID: 2095498221}
+    hatTimeSlider: {fileID: 1276973508}
+  - obj: {fileID: 1329898772}
+    nameText: {fileID: 78373747}
+    hatTimeSlider: {fileID: 1359561988}
+  winText: {fileID: 553532281}
 --- !u!1 &259122869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &553532280
 RectTransform:
   m_ObjectHideFlags: 0

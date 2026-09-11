@@ -276,6 +276,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1839634459677740020}
+  - {fileID: 9051080947678038412}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -308,11 +309,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   id: 0
-  moveSpeed: 1
-  jumpForce: 1
+  moveSpeed: 5
+  jumpForce: 5
   hatObject: {fileID: 7713030476959490468}
   curHatTime: 0
-  rig: {fileID: 0}
+  rig: {fileID: 2322184850585920133}
 --- !u!1 &7713030476959490468
 GameObject:
   m_ObjectHideFlags: 0
